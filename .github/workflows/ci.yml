@@ -77,5 +77,3 @@ jobs:
         source_dir: rb_build
         destination_dir: rb
         endpoint: https://${{ secrets.R2_DOMAIN }}
-
-        endpoint: https://${{ secrets.R2_DOMAIN }}
