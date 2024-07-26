@@ -6,7 +6,27 @@ on:
       - v*
 
 jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: actions/checkout@v3
+      with:
+          fetch-depth: 1
+
+    - name: Download rebebuca repo
+      run: |
+          git clone --depth 1 https://github.com/rebebuca/rebebuca.git
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: repo
+        path: rebebuca
+
   build-tauri-windows:
+    needs: build
     runs-on: windows-latest
     steps:
     - name: setup node
@@ -22,6 +42,11 @@ jobs:
         profile: minimal
         toolchain: stable
         target: x86_64-pc-windows-msvc
+
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: repo
 
     - name: Install pnpm
       uses: pnpm/action-setup@v2
@@ -62,3 +87,4 @@ jobs:
         source_dir: rb_build
         destination_dir: rb
         endpoint: https://${{ secrets.R2_DOMAIN }}
+
