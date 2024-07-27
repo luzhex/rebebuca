@@ -33,6 +33,16 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 20
+        
+    - name: Clean Environment
+      run: |
+        # 删除dist目录下的所有文件
+        rm -rf dist/*
+        # 删除node_modules目录
+        rm -rf node_modules
+ 
+        # 删除特定模式的文件
+        find . -name '*.log' -type f -delete
 
     - name: install Rust stable windows
       uses: actions-rs/toolchain@v1
