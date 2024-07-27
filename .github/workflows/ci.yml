@@ -63,7 +63,7 @@ jobs:
           cd bin
           Invoke-WebRequest -Uri https://download.m7s.live/bin/ffmpeg-x86_64-pc-windows-msvc.exe -OutFile .\ffmpeg-x86_64-pc-windows-msvc.exe
 
-    - uses: JonasKruckenberg/tauri-build@v1
+    - uses: JonasKruckenberg/tauri-build@main
       id: tauri_build
       env:
         TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
@@ -71,7 +71,7 @@ jobs:
       with:
         target: x86_64-pc-windows-msvc
         projectPath: src-tauri
-        debug: false
+        debug: true
 
     - name: copy ouputs
       run: |
